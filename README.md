@@ -1,1 +1,68 @@
-# bluemix-mobileclientaccess-kitura-credentials-plugin
+#Kitura Credentials plugin for the Mobile Client Access service
+
+[![Swift][swift-badge]][swift-url]
+[![Platform][platform-badge]][platform-url]
+
+[swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg
+[swift-url]: https://swift.org
+[platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
+[platform-url]: https://swift.org
+
+## Installation
+
+```swift
+import PackageDescription
+
+let package = Package(
+    dependencies: [
+        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.git", majorVersion: 0, minor: 0)
+    ]
+)
+```
+
+* 0.0.x releases is tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-04-25-a
+
+## Usage
+
+```swift
+import Kitura
+import KituraNet
+import KituraSys
+import MobileClientAccessKituraCredentialsPlugin
+import MobileClientAccess
+
+let credentials = Credentials()
+credentials.register(plugin: MobileClientAccessKituraCredentialsPlugin())
+		
+let router = Router()
+router.all("/public", handler: { (request, response, next) in
+	response.status(.OK).send("Hello from a public resource!")
+	next()
+})
+
+router.all("/protected", middleware: credentials)
+router.all("/protected", handler: { (request, response, next) in
+
+	// UserProfile is available as part of Kitura Credentials workflow
+	let userProfile = request.userProfile
+	
+	// Additional Mobile Client Access Authorization Context is added after successful authorization token validation
+	let authContext = request.userInfo["mcaAuthContext"] as! AuthorizationContext
+	
+	response.status(.OK).send("Hello from a protected resource, " + authContext.userIdentity!.id)
+	next()
+})
+		
+HttpServer.listen(port: 1234, delegate: router)
+		
+Server.run()
+```
+
+## License
+
+This project is released under the Apache-2.0 license
+
+[swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg
+[swift-url]: https://swift.org
+[platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
+[platform-url]: https://swift.org
