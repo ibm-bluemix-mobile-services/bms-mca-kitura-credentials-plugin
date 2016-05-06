@@ -20,7 +20,7 @@ let package = Package(
 )
 ```
 
-* 0.0.x releases is tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-04-25-a
+* 0.0.x releases are tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-04-25-a
 
 ## Usage
 
