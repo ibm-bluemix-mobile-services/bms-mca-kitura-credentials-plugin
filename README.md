@@ -20,7 +20,7 @@ let package = Package(
 )
 ```
 
-* 0.0.x releases are tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-04-25-a
+* 0.1.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-05-03-a
 
 ## Usage
 
@@ -33,7 +33,7 @@ import MobileClientAccess
 
 let credentials = Credentials()
 credentials.register(plugin: MobileClientAccessKituraCredentialsPlugin())
-		
+
 let router = Router()
 router.all("/public", handler: { (request, response, next) in
 	response.status(.OK).send("Hello from a public resource!")
@@ -45,16 +45,16 @@ router.all("/protected", handler: { (request, response, next) in
 
 	// UserProfile is available as part of Kitura Credentials workflow
 	let userProfile = request.userProfile
-	
+
 	// Additional Mobile Client Access Authorization Context is added after successful authorization token validation
 	let authContext = request.userInfo["mcaAuthContext"] as! AuthorizationContext
-	
+
 	response.status(.OK).send("Hello from a protected resource, " + authContext.userIdentity!.id)
 	next()
 })
-		
+
 HttpServer.listen(port: 1234, delegate: router)
-		
+
 Server.run()
 ```
 
@@ -73,4 +73,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
