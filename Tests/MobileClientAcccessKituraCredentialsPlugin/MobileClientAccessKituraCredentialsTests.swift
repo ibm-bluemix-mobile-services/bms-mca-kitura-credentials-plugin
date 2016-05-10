@@ -17,8 +17,8 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 	func testMobileClientAccessCredentials(){
 		let mcaCredentials = MobileClientAccessKituraCredentialsPlugin()
 	 	XCTAssertEqual(mcaCredentials.name, "MobileClientAccess")
-		XCTAssertEqual(mcaCredentials.type, CredentialsPluginType.Token)
-		//doTestServer()
+		XCTAssertEqual(mcaCredentials.type, CredentialsPluginType.token)
+		// doTestServer()
 	}
 	
 	func doTestServer(){
@@ -43,7 +43,7 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 			next()
 		})
 		
-		HttpServer.listen(port: 1234, delegate: router)
+		HTTPServer.listen(port: 1234, delegate: router)
 		
 		Server.run()
 	}

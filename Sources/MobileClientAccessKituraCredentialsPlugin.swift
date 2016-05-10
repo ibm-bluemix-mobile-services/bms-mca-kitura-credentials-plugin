@@ -28,7 +28,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 	}
 
 	public var type: CredentialsPluginType{
-		return CredentialsPluginType.Token
+		return CredentialsPluginType.token
 	}
 
 	#if os(Linux)
@@ -47,7 +47,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 			if error != nil{
 				self.logger.debug("authenticate :: failure")
 				response.setHeader("WWW-Authenticate", value: "Bearer realm=\"imfAuthentication\"")
-				response.status(.UNAUTHORIZED)
+				response.status(.unauthorized)
 				_ = try? response.end("Unauthorized")
 			} else {
 				request.userInfo["mcaAuthContext"] = authContext
