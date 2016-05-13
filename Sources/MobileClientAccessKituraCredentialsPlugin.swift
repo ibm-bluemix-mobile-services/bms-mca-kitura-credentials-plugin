@@ -23,6 +23,8 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 	
 	private let logger = Logger(forName: "MobileClientAccessCredentialsPlugin")
 	
+	public init(){}
+	
 	public var name: String {
 		return "MobileClientAccess"
 	}
