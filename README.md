@@ -30,6 +30,7 @@ import KituraNet
 import KituraSys
 import MobileClientAccessKituraCredentialsPlugin
 import MobileClientAccess
+import Credentials
 
 let credentials = Credentials()
 credentials.register(plugin: MobileClientAccessKituraCredentialsPlugin())
@@ -53,7 +54,7 @@ router.all("/protected", handler: { (request, response, next) in
 	next()
 })
 
-HttpServer.listen(port: 1234, delegate: router)
+HTTPServer.listen(port: 1234, delegate: router)
 
 Server.run()
 ```
