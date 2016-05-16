@@ -8,6 +8,10 @@
 [platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
 [platform-url]: https://swift.org
 
+## Known limitations
+
+The SDK is still in development phase and should not be used for production. At this point digital signatures of access and identity tokens are not validated, which makes it easier to fake these tokens by a malicious party. 
+
 ## Installation
 
 ```swift
