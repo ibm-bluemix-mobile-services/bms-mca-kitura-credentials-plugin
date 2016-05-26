@@ -14,6 +14,7 @@
 import Foundation
 import SimpleLogger
 import Kitura
+import KituraNet
 import Credentials
 import MobileClientAccess
 
@@ -29,10 +30,8 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 		return "MobileClientAccess"
 	}
 
-	public var type: CredentialsPluginType{
-		return CredentialsPluginType.token
-	}
-
+	public var redirecting = false
+	
 	#if os(Linux)
 		public var usersCache : NSCache?
 	#else
@@ -40,7 +39,14 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 	#endif
 
 
-	public func authenticate(request: RouterRequest, response: RouterResponse, options: [String : OptionValue], onSuccess: (UserProfile) -> Void, onFailure: () -> Void, onPass: () -> Void, inProgress: () -> Void) {
+	public func authenticate (request: RouterRequest,
+	                          response: RouterResponse,
+	                          options: [String:OptionValue],
+	                          onSuccess: (UserProfile) -> Void,
+	                          onFailure: (HTTPStatusCode?, [String:String]?) -> Void,
+	                          onPass: (HTTPStatusCode?, [String:String]?) -> Void,
+	                          inProgress: () -> Void) {
+		
 		logger.debug("authenticate")
 
 		let authHeader = request.headers[MobileClientAccessKituraCredentialsPlugin.AUTH_HEADER]
@@ -51,6 +57,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 				response.headers.append("WWW-Authenticate", value: "Bearer realm=\"imfAuthentication\"")
 				response.status(.unauthorized)
 				_ = try? response.end("Unauthorized")
+				//onFailure(.unauthorized, ["WWW-Authenticate":"imfAuthentication"])
 			} else {
 				request.userInfo["mcaAuthContext"] = authContext
 				if let userId = authContext?.userIdentity?.id,
@@ -61,7 +68,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 					onSuccess(userProfile)
 				} else {
 					self.logger.debug("authenticate :: failure")
-					onFailure()
+					onFailure(HTTPStatusCode.unauthorized, nil)
 				}
 			}
 		}

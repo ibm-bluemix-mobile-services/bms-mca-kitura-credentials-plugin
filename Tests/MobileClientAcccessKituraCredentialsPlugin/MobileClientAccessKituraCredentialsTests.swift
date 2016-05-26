@@ -17,8 +17,8 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 	func testMobileClientAccessCredentials(){
 		let mcaCredentials = MobileClientAccessKituraCredentialsPlugin()
 	 	XCTAssertEqual(mcaCredentials.name, "MobileClientAccess")
-		XCTAssertEqual(mcaCredentials.type, CredentialsPluginType.token)
-		// doTestServer()
+		XCTAssertFalse(mcaCredentials.redirecting)
+		//doTestServer()
 	}
 	
 	func doTestServer(){
@@ -33,6 +33,7 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 		})
 		router.all("/protected", middleware: credentials)
 		router.all("/protected", handler: { (request, response, next) in
+			print("in protected")
 			let userProfile = request.userProfile
 			let authContext = request.userInfo["mcaAuthContext"] as! AuthorizationContext
 			
