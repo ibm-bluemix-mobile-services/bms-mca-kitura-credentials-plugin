@@ -31,16 +31,22 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 			response.status(.OK).send("Hello from a public resource!")
 			next()
 		})
+		
 		router.all("/protected", middleware: credentials)
 		router.all("/protected", handler: { (request, response, next) in
 			print("in protected")
+
 			let userProfile = request.userProfile
-			let authContext = request.userInfo["mcaAuthContext"] as! AuthorizationContext
-			
 			XCTAssertNotNil(userProfile)
-			XCTAssertNotNil(authContext)
+			print("Kitura UserProfile :: \(userProfile)")
+
+			if let authContext = request.userInfo["mcaAuthContext"] as? AuthorizationContext{
+				print("MCA authContext:: \(authContext)")
+				response.status(.OK).send("Hello from a protected resource1 \(authContext.userIdentity?.id)")
+			} else {
+				response.status(.OK).send("Hello from a protected resource2 \(userProfile?.id)")
+			}
 			
-			response.status(.OK).send("Hello from a protected resource, " + authContext.userIdentity!.id)
 			next()
 		})
 		

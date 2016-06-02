@@ -60,16 +60,17 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 				//onFailure(.unauthorized, ["WWW-Authenticate":"imfAuthentication"])
 			} else {
 				request.userInfo["mcaAuthContext"] = authContext
+				var userProfile:UserProfile
 				if let userId = authContext?.userIdentity?.id,
 					let displayName = authContext?.userIdentity?.displayName,
 					let provider = authContext?.userIdentity?.authBy {
 					self.logger.debug("authenticate :: success")
-					let userProfile = UserProfile(id: userId, displayName: displayName, provider: provider)
-					onSuccess(userProfile)
+					userProfile = UserProfile(id: userId, displayName: displayName, provider: provider)
 				} else {
-					self.logger.debug("authenticate :: failure")
-					onFailure(HTTPStatusCode.unauthorized, nil)
+					userProfile = UserProfile(id: "##N/A##", displayName: "##N/A##", provider: "##N/A##")
 				}
+				onSuccess(userProfile)
+
 			}
 		}
 	}
