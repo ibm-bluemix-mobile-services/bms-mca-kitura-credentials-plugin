@@ -2,6 +2,7 @@
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
+[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.svg)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin)
 
 [swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg
 [swift-url]: https://swift.org
@@ -10,7 +11,7 @@
 
 ## Known limitations
 
-The SDK is still in development phase and should not be used for production. At this point digital signatures of access and identity tokens are not validated, which makes it easier to fake these tokens by a malicious party. 
+The SDK is still in development phase and should not be used for production. At this point digital signatures of access and identity tokens are not validated, which makes it easier to fake these tokens by a malicious party.
 
 ## Installation
 
@@ -19,11 +20,12 @@ import PackageDescription
 
 let package = Package(
     dependencies: [
-        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.git", majorVersion: 0, minor: 1)
+        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.git", majorVersion: 0, minor: 2)
     ]
 )
 ```
 
+* 0.2.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-06-06-a
 * 0.1.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-05-03-a
 
 ## Usage

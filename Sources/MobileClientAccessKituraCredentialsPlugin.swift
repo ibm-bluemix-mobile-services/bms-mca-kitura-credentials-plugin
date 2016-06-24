@@ -54,10 +54,11 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 		MobileClientAccessSDK.sharedInstance.authorizationContext(from: authHeader) { error, authContext in
 			if error != nil{
 				self.logger.debug("authenticate :: failure")
-				response.headers.append("WWW-Authenticate", value: "Bearer realm=\"imfAuthentication\"")
-				response.status(.unauthorized)
-				_ = try? response.end("Unauthorized")
-				//onFailure(.unauthorized, ["WWW-Authenticate":"imfAuthentication"])
+				response.send("Unauthorized")
+//				response.headers.append("WWW-Authenticate", value: "Bearer realm=\"imfAuthentication\"")
+//				response.status(.unauthorized)
+//				_ = try? response.end("Unauthorized")
+				onFailure(.unauthorized, ["WWW-Authenticate":"imfAuthentication"])
 			} else {
 				request.userInfo["mcaAuthContext"] = authContext
 				var userProfile:UserProfile

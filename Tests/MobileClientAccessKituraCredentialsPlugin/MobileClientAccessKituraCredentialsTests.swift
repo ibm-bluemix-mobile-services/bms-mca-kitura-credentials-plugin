@@ -20,18 +20,18 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 		XCTAssertFalse(mcaCredentials.redirecting)
 		//doTestServer()
 	}
-	
+
 	func doTestServer(){
 		let credentials = Credentials()
 		let mcaCredentials = MobileClientAccessKituraCredentialsPlugin()
 		credentials.register(plugin: mcaCredentials)
-		
+
 		let router = Router()
 		router.all("/public", handler: { (request, response, next) in
 			response.status(.OK).send("Hello from a public resource!")
 			next()
 		})
-		
+
 		router.all("/protected", middleware: credentials)
 		router.all("/protected", handler: { (request, response, next) in
 			print("in protected")
@@ -46,18 +46,17 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 			} else {
 				response.status(.OK).send("Hello from a protected resource2 \(userProfile?.id)")
 			}
-			
+
 			next()
 		})
-		
-		HTTPServer.listen(port: 1234, delegate: router)
-		
-		Server.run()
+
+		let _ = HTTPServer.listen(port: 1234, delegate: router)
+		Kitura.run()
 	}
 }
 
 extension MobileClientAccessKituraCredentialsTests {
-	static var allTests : [(String, MobileClientAccessKituraCredentialsTests -> () throws -> Void)] {
+	static var allTests : [(String, (MobileClientAccessKituraCredentialsTests) -> () throws -> Void)] {
 		return [
 		       	("testMobileClientAccessCredentials", testMobileClientAccessCredentials)
 		]
