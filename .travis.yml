@@ -1,6 +1,6 @@
 os:
   - linux
-#  - osx # removed till Travis git 2.9.0 bug is resolved
+  - osx
 language: generic
 env:
   global:
@@ -20,6 +20,12 @@ install:
       sudo rm /usr/bin/ld && sudo ln -s /usr/bin/ld.gold /usr/bin/ld;
       cd swift-corelibs-libdispatch && git submodule init && git submodule update && sh ./autogen.sh && ./configure --with-swift-toolchain=/home/travis/.swiftenv/versions/$SWIFT_VERSION/usr --prefix=/home/travis/.swiftenv/versions/$SWIFT_VERSION/usr && make && make install;
     fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew unlink git;
+      brew install git;
+    fi
+  - git --version
+
 script:
   - swift build --clean # clean built artifacts if present
   - swift package fetch # clones all dependencies
