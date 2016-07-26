@@ -19,23 +19,23 @@ import Credentials
 import MobileClientAccess
 
 public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtocol {
-	
+
 	private static let AUTH_HEADER = "Authorization";
-	
+
 	private let logger = Logger(forName: "MobileClientAccessCredentialsPlugin")
-	
+
 	public init(){}
-	
+
 	public var name: String {
 		return "MobileClientAccess"
 	}
 
 	public var redirecting = false
-	
+
 	#if os(Linux)
 		public var usersCache : NSCache?
 	#else
-		public var usersCache : NSCache<NSString, BaseCacheElement>?
+		public var usersCache : Cache<NSString, BaseCacheElement>?
 	#endif
 
 
@@ -46,7 +46,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 	                          onFailure: (HTTPStatusCode?, [String:String]?) -> Void,
 	                          onPass: (HTTPStatusCode?, [String:String]?) -> Void,
 	                          inProgress: () -> Void) {
-		
+
 		logger.debug("authenticate")
 
 		let authHeader = request.headers[MobileClientAccessKituraCredentialsPlugin.AUTH_HEADER]
