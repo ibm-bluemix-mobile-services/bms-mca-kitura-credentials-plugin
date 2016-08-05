@@ -58,7 +58,7 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 //				response.headers.append("WWW-Authenticate", value: "Bearer realm=\"imfAuthentication\"")
 //				response.status(.unauthorized)
 //				_ = try? response.end("Unauthorized")
-				onFailure(.unauthorized, ["WWW-Authenticate":"imfAuthentication"])
+				onFailure(.unauthorized, ["WWW-Authenticate":"Bearer realm=\"imfAuthentication\""])
 			} else {
 				request.userInfo["mcaAuthContext"] = authContext
 				var userProfile:UserProfile
