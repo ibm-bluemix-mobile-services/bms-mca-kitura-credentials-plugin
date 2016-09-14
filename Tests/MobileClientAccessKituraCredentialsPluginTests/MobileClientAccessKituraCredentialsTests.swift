@@ -3,7 +3,6 @@ import Foundation
 import Credentials
 import Kitura
 import KituraNet
-import KituraSys
 
 @testable import MobileClientAccessKituraCredentialsPlugin
 @testable import MobileClientAccess
