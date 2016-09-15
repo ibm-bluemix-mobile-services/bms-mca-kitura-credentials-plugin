@@ -32,20 +32,15 @@ public class MobileClientAccessKituraCredentialsPlugin: CredentialsPluginProtoco
 
 	public var redirecting = false
 
-	#if os(Linux)
-		public var usersCache : NSCache?
-	#else
-		public var usersCache : Cache<NSString, BaseCacheElement>?
-	#endif
-
+	public var usersCache : NSCache<NSString, BaseCacheElement>?
 
 	public func authenticate (request: RouterRequest,
 	                          response: RouterResponse,
-	                          options: [String:OptionValue],
-	                          onSuccess: (UserProfile) -> Void,
-	                          onFailure: (HTTPStatusCode?, [String:String]?) -> Void,
-	                          onPass: (HTTPStatusCode?, [String:String]?) -> Void,
-	                          inProgress: () -> Void) {
+	                          options: [String:Any],
+	                          onSuccess: @escaping (UserProfile) -> Void,
+	                          onFailure: @escaping (HTTPStatusCode?, [String:String]?) -> Void,
+	                          onPass: @escaping (HTTPStatusCode?, [String:String]?) -> Void,
+	                          inProgress: @escaping () -> Void) {
 
 		logger.debug("authenticate")
 

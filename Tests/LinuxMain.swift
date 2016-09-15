@@ -1,5 +1,5 @@
 import XCTest
-@testable import MobileClientAccessKituraCredentialsPluginTestSuite
+@testable import MobileClientAccessKituraCredentialsPluginTests
 
 XCTMain([
 	 testCase(MobileClientAccessKituraCredentialsTests.allTests),
