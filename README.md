@@ -1,4 +1,4 @@
-#Kitura Credentials plugin for the Mobile Client Access service
+# Kitura Credentials plugin for the Mobile Client Access service
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
