@@ -20,15 +20,18 @@ import PackageDescription
 
 let package = Package(
     dependencies: [
-        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.git", majorVersion: 0, minor: 4)
+        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bms-mca-kitura-credentials-plugin.git", majorVersion: 0, minor: 5)
     ]
 )
 ```
 
-* 0.4.x releases were tested on OSX and Linux with 3.0.1
-* 0.3.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-06-20-a
-* 0.2.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-06-06-a
-* 0.1.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-05-03-a
+## Releases
+
+* 0.5.x releases were tested on OSX and Linux with Swift 3.1
+* 0.4.x releases were tested on OSX and Linux with Swift 3.0.1
+* 0.3.x releases were tested on OSX and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-06-20-a
+* 0.2.x releases were tested on OSX and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-06-06-a
+* 0.1.x releases were tested on OSX and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-05-03-a
 
 ## Usage
 
