@@ -15,7 +15,7 @@ notifications:
 
 dist: trusty
 
-osx_image: xcode8
+osx_image: xcode8.3
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
