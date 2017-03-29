@@ -37,19 +37,19 @@ class MobileClientAccessKituraCredentialsTests: XCTestCase {
 
 			let userProfile = request.userProfile
 			XCTAssertNotNil(userProfile)
-			print("Kitura UserProfile :: \(userProfile)")
+			print("Kitura UserProfile :: \(String(describing: userProfile))")
 
 			if let authContext = request.userInfo["mcaAuthContext"] as? AuthorizationContext{
 				print("MCA authContext:: \(authContext)")
-				response.status(.OK).send("Hello from a protected resource1 \(authContext.userIdentity?.id)")
+				response.status(.OK).send("Hello from a protected resource1 \(String(describing: authContext.userIdentity?.id))")
 			} else {
-				response.status(.OK).send("Hello from a protected resource2 \(userProfile?.id)")
+				response.status(.OK).send("Hello from a protected resource2 \(String(describing: userProfile?.id))")
 			}
 
 			next()
 		})
 
-		let _ = HTTPServer.listen(port: 1234, delegate: router)
+        let _ = try? HTTPServer.listen(on: 1234, delegate: router)
 		Kitura.run()
 	}
 }
